@@ -50,14 +50,15 @@ def webhook():
 
 
 def processRequest(req):
-    if req.get("result").get("action") != "yahooWeatherForecast":
+    if req.get("result").get("action") != "MerakiGetAdmin":
         return {}
-    baseurl = "https://query.yahooapis.com/v1/public/yql?"
-    yql_query = makeYqlQuery(req)
-    if yql_query is None:
-        return {}
-    yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
-    result = urlopen(yql_url).read()
+    baseurl = "https://dashboard.meraki.com/api/v0/organizations/419894/admins"
+    request_headers = {"X-Cisco-Meraki-API-Key": "35e1fed7af6f534c4b42747ff0feaed1685413f7"}
+    request = Request(baseurl, headers=request_headers)
+
+    #yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
+    
+    result = urlopen(request).read()
     data = json.loads(result)
     res = makeWebhookResult(data)
     return res
@@ -74,32 +75,12 @@ def makeYqlQuery(req):
 
 
 def makeWebhookResult(data):
-    query = data.get('query')
+    query = data.get('name')
     if query is None:
-        return {}
+        speech ="The computer says NO!"
+    else
+        speech = "The network is here and it says hello :" + query
 
-    result = query.get('results')
-    if result is None:
-        return {}
-
-    channel = result.get('channel')
-    if channel is None:
-        return {}
-
-    item = channel.get('item')
-    location = channel.get('location')
-    units = channel.get('units')
-    if (location is None) or (item is None) or (units is None):
-        return {}
-
-    condition = item.get('condition')
-    if condition is None:
-        return {}
-
-    # print(json.dumps(item, indent=4))
-
-    speech = "The weather in " + location.get('city') + ": " + condition.get('text') + \
-             ", And the temperature is " + condition.get('temp') + " " + units.get('temperature')
 
     print("Response:")
     print(speech)
