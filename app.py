@@ -66,11 +66,23 @@ def processRequest(req):
     #    return {}
     #yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
     #result = urlopen(yql_url).read()
-    
+
+    try:
+        data = json.loads(result)
+    except ValueError:
+        return speak('webhook: load error')
+
     data = json.loads(result)
     res = makeWebhookResult(data)
     return res
 
+def speak(text):
+    
+    return {
+        "speech": text,
+        "displayText": text,
+        "source": "webhook"
+    }
 
 def makeWebhookResult(data):
     query = data.get('name')
