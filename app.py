@@ -76,7 +76,7 @@ def makeWebhookResult(data):
     query = data.get('name')
     if query is None:
         speech = "The mk4 - no data"
-    else
+    else:
         speech = " Mk4 - got data"
 
 
