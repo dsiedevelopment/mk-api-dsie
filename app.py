@@ -53,9 +53,10 @@ def processRequest(req):
     if req.get("result").get("action") != "AskMeraki":
         return {}
     
-    #baseurl = "https://dashboard.meraki.com/api/v0/organizations/419894/admins"
-    #request_headers = {"X-Cisco-Meraki-API-Key": "35e1fed7af6f534c4b42747ff0feaed1685413f7"}
-    #request = Request(baseurl, headers=request_headers)  
+    baseurl = "https://dashboard.meraki.com/api/v0/organizations/419894/admins"
+    request_headers = {'X-Cisco-Meraki-API-Key': '35e1fed7af6f534c4b42747ff0feaed1685413f7',
+                       'Content-Type': 'application/json'}
+    request = Request(baseurl, headers=request_headers)  
     #result = urlopen(request).read()
 
     
@@ -96,7 +97,7 @@ def makeWebhookResult(data):
 
     # print(json.dumps(item, indent=4))
 
-    speech = "The weather in " + location.get('city') + ": " + condition.get('text') + \
+    speech = "The mk2 weather in " + location.get('city') + ": " + condition.get('text') + \
              ", And the temperature is " + condition.get('temp') + " " + units.get('temperature')
 
     print("Response:")
