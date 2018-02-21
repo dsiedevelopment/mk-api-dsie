@@ -73,8 +73,8 @@ def processRequest(req):
     except ValueError:
         return speak('webhook: load error')
 
-    return speak('webhook: loaded!!!')
-    data = json.loads(result)
+    #return speak('webhook: loaded!!!')
+
     res = makeWebhookResult(data)
     return res
 
@@ -89,9 +89,9 @@ def speak(text):
 def makeWebhookResult(data):
     query = data.get('name')
     if query is None:
-        speech = "The mk5 - no data" 
+        speech = "The mk6 - no data" + data
     else:
-        speech = " Mk5 - got data"
+        speech = " Mk5 - got data" + data
 
 
 
