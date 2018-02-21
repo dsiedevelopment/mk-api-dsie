@@ -53,19 +53,20 @@ def processRequest(req):
     if req.get("result").get("action") != "AskMeraki":
         return {}
     
-    baseurl = "https://dashboard.meraki.com/api/v0/organizations/419894/admins"
+    #baseurl = "https://dashboard.meraki.com/api/v0/organizations/419894/admins"
+    baseurl = "https://dashboard.meraki.com/api/v0/organizations/"
     request_headers = {'X-Cisco-Meraki-API-Key': '35e1fed7af6f534c4b42747ff0feaed1685413f7',
                        'Content-Type': 'application/json'}
     request = Request(baseurl, headers=request_headers)  
     result = urlopen(request).read()
 
     
-    baseurl = "https://query.yahooapis.com/v1/public/yql?"
-    yql_query = "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='Paisley'  ) and u='c'   "
-    if yql_query is None:
-        return {}
-    yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
-    result = urlopen(yql_url).read()
+    #baseurl = "https://query.yahooapis.com/v1/public/yql?"
+    #yql_query = "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='Paisley'  ) and u='c'   "
+    #if yql_query is None:
+    #    return {}
+    #yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
+    #result = urlopen(yql_url).read()
 
     try:
         data = json.loads(result)
