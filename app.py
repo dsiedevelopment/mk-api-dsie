@@ -52,14 +52,15 @@ def webhook():
 def processRequest(req):
     if req.get("result").get("action") != "MerakiGetAdmin":
         return {}
-    baseurl = "https://dashboard.meraki.com/api/v0/organizations/419894/admins"
-    request_headers = {"X-Cisco-Meraki-API-Key": "35e1fed7af6f534c4b42747ff0feaed1685413f7"}
-    request = Request(baseurl, headers=request_headers)
+    #baseurl = "https://dashboard.meraki.com/api/v0/organizations/419894/admins"
+    #request_headers = {"X-Cisco-Meraki-API-Key": "35e1fed7af6f534c4b42747ff0feaed1685413f7"}
+    #request = Request(baseurl, headers=request_headers)
 
     #yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
     
-    result = urlopen(request).read()
-    data = json.loads(result)
+    #result = urlopen(request).read()
+    #data = json.loads(result)
+    data="temp data"
     res = makeWebhookResult(data)
     return res
 
