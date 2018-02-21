@@ -56,7 +56,7 @@ def processRequest(req):
     baseurl = "https://dashboard.meraki.com/api/v0/organizations/419894/admins"
     request_headers = {"X-Cisco-Meraki-API-Key": "35e1fed7af6f534c4b42747ff0feaed1685413f7"}
     request = Request(baseurl, headers=request_headers)  
-    result = urlopen(request).read()
+    #result = urlopen(request).read()
 
     
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
