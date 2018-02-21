@@ -72,6 +72,7 @@ def processRequest(req):
     except ValueError:
         return speak('webhook: load error')
 
+    return speak('webhook: loaded!!!')
     data = json.loads(result)
     res = makeWebhookResult(data)
     return res
