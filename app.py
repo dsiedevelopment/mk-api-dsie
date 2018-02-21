@@ -57,7 +57,7 @@ def processRequest(req):
     request_headers = {'X-Cisco-Meraki-API-Key': '35e1fed7af6f534c4b42747ff0feaed1685413f7',
                        'Content-Type': 'application/json'}
     request = Request(baseurl, headers=request_headers)  
-    #result = urlopen(request).read()
+    result = urlopen(request).read()
 
     
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
@@ -97,7 +97,7 @@ def makeWebhookResult(data):
 
     # print(json.dumps(item, indent=4))
 
-    speech = "The mk2 weather in " + location.get('city') + ": " + condition.get('text') + \
+    speech = "The mk3 weather in " + location.get('city') + ": " + condition.get('text') + \
              ", And the temperature is " + condition.get('temp') + " " + units.get('temperature')
 
     print("Response:")
