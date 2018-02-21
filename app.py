@@ -59,17 +59,38 @@ def processRequest(req):
     result = urlopen(request).read()
 
     
-    baseurl = "https://query.yahooapis.com/v1/public/yql?"
-    yql_query = "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='Paisley'  ) and u='c'   "
-    if yql_query is None:
-        return {}
-    yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
-    result = urlopen(yql_url).read()
+    #baseurl = "https://query.yahooapis.com/v1/public/yql?"
+    #yql_query = "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='Paisley'  ) and u='c'   "
+    #if yql_query is None:
+    #    return {}
+    #yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
+    #result = urlopen(yql_url).read()
+    
     data = json.loads(result)
-    res = makeWebhookResult(data)
+    res = makeWebhookResultmk2(data)
     return res
 
+def makeWebhookResultmk2(data):
+    query = data.get('query')
+    if query is None:
+        speech = "Response function mk2 - no data "
+    else
+        speech = "Response function mk2 - got data " 
 
+
+    # print(json.dumps(item, indent=4))
+
+
+    print("Response:")
+    print(speech)
+
+    return {
+        "speech": speech,
+        "displayText": speech,
+        # "data": data,
+        # "contextOut": [],
+        "source": "apiai-weather-webhook-sample"
+    }
 
 
 def makeWebhookResult(data):
