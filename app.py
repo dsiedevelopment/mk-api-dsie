@@ -53,9 +53,9 @@ def processRequest(req):
     if req.get("result").get("action") != "AskMeraki":
         return {}
     
-    baseurl = "https://dashboard.meraki.com/api/v0/organizations/419894/admins"
-    request_headers = {"X-Cisco-Meraki-API-Key": "35e1fed7af6f534c4b42747ff0feaed1685413f7"}
-    request = Request(baseurl, headers=request_headers)  
+    #baseurl = "https://dashboard.meraki.com/api/v0/organizations/419894/admins"
+    #request_headers = {"X-Cisco-Meraki-API-Key": "35e1fed7af6f534c4b42747ff0feaed1685413f7"}
+    #request = Request(baseurl, headers=request_headers)  
     #result = urlopen(request).read()
 
     
@@ -69,28 +69,6 @@ def processRequest(req):
     data = json.loads(result)
     res = makeWebhookResult(data)
     return res
-
-def makeWebhookResultmk2(data):
-    query = data.get('query')
-    if query is None:
-        speech = "Response function mk2 - no data "
-    else
-        speech = "Response function mk2 - got data " 
-
-
-    # print(json.dumps(item, indent=4))
-
-
-    print("Response:")
-    print(speech)
-
-    return {
-        "speech": speech,
-        "displayText": speech,
-        # "data": data,
-        # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"
-    }
 
 
 def makeWebhookResult(data):
