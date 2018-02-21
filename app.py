@@ -66,8 +66,8 @@ def processRequest(req):
     #yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
     #result = urlopen(yql_url).read()
     
-    data = json.loads(result)
-    res = makeWebhookResultmk2(data)
+    #data = json.loads(result)
+    res = makeWebhookResultmk2(result)
     return res
 
 def makeWebhookResultmk2(data):
@@ -75,7 +75,7 @@ def makeWebhookResultmk2(data):
     if query is None:
         speech = "Response function mk2 - no data "
     else
-        speech = "Response function mk2 - got data " 
+        speech = "Response function mk2 - got data " + data
 
 
     # print(json.dumps(item, indent=4))
