@@ -53,19 +53,35 @@ def processRequest(req):
     if req.get("result").get("action") != "AskMeraki":
         return {}
     
-    baseurl = "https://dashboard.meraki.com/api/v0/organizations/419894/admins"
-    #baseurl = "https://dashboard.meraki.com/api/v0/organizations/"
-    request_headers = {'X-Cisco-Meraki-API-Key': '35e1fed7af6f534c4b42747ff0feaed1685413f7',
-                       'Content-Type': 'application/json'}
-    request = Request(baseurl, headers=request_headers)  
-    result = urlopen(request).read()
+    if req.get("result").get("action") == "AskMeraki":
+        baseurl = "https://dashboard.meraki.com/api/v0/organizations/419894/admins"
+        #baseurl = "https://dashboard.meraki.com/api/v0/organizations/"
+        request_headers = {'X-Cisco-Meraki-API-Key': '35e1fed7af6f534c4b42747ff0feaed1685413f7',
+                           'Content-Type': 'application/json'}
+        request = Request(baseurl, headers=request_headers)  
+        result = urlopen(request).read()
 
-    try:
-        data = json.loads(result)
-    except ValueError:
-        return speak('Sorry, looks like the network has gone to sleep!!!, try again later')
+        try:
+            data = json.loads(result)
+        except ValueError:
+            return speak('Sorry, looks like the network has gone to sleep!!!, try again later')
 
-    return speak(GetAdminCount(data))
+        return speak(GetAdminCount(data))
+
+    if req.get("result").get("action") == "AskAdmin":
+        baseurl = "https://dashboard.meraki.com/api/v0/organizations/419894/admins"
+        #baseurl = "https://dashboard.meraki.com/api/v0/organizations/"
+        request_headers = {'X-Cisco-Meraki-API-Key': '35e1fed7af6f534c4b42747ff0feaed1685413f7',
+                           'Content-Type': 'application/json'}
+        request = Request(baseurl, headers=request_headers)  
+        result = urlopen(request).read()
+
+        try:
+            data = json.loads(result)
+        except ValueError:
+            return speak('Sorry, looks like the network has gone to sleep!!!, try again later')
+
+        return speak(GetAdminList(data))
 
 def speak(text):
     
@@ -84,6 +100,15 @@ def GetAdminCount(data):
 
     return speech
 
+def GetAdminList(data):
+    speech = " They are, "
+    Kount = len(data)
+    if Kount == 0:
+        for current in data:
+        speech = speech + current["name"] + ","
+
+
+    return speech
 
 
 if __name__ == '__main__':
