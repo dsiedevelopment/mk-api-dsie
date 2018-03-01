@@ -93,7 +93,7 @@ def speak(text):
 
 def GetAdminCount(data):
     Kount = len(data)
-    if Kount == 0:
+    if Kount != 0:
         speech = "Sorry but there are no admin accounts available"
     else:
         speech = "There are " + str(Kount) + " admin accounts, do you wish me to list them"
