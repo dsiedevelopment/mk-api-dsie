@@ -50,9 +50,7 @@ def webhook():
 
 
 def processRequest(req):
-    if req.get("result").get("action") != "AskMeraki":
-        return {}
-    
+   
     if req.get("result").get("action") == "AskMeraki":
         baseurl = "https://dashboard.meraki.com/api/v0/organizations/419894/admins"
         #baseurl = "https://dashboard.meraki.com/api/v0/organizations/"
@@ -68,7 +66,7 @@ def processRequest(req):
 
         return speak(GetAdminCount(data))
 
-    if req.get("result").get("action") == "AskAdmin":
+    elif req.get("result").get("action") == "AskAdmin":
         baseurl = "https://dashboard.meraki.com/api/v0/organizations/419894/admins"
         #baseurl = "https://dashboard.meraki.com/api/v0/organizations/"
         request_headers = {'X-Cisco-Meraki-API-Key': '35e1fed7af6f534c4b42747ff0feaed1685413f7',
@@ -82,6 +80,8 @@ def processRequest(req):
             return speak('Sorry, looks like the network has gone to sleep!!!, try again later')
 
         return speak(GetAdminList(data))
+    else:
+        return speak("meraki says no actions today")
 
 def speak(text):
     
@@ -105,10 +105,9 @@ def GetAdminList(data):
     Kount = len(data)
     if Kount == 0:
         for current in data:
-        speech = speech + current["name"] + ","
-
-
+            speech = speech + current["name"] + ","
     return speech
+
 
 
 if __name__ == '__main__':
