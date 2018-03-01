@@ -43,7 +43,7 @@ def webhook():
     res = processRequest(req)
 
     res = json.dumps(res, indent=4)
-    # print(res)
+
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
@@ -63,12 +63,9 @@ def processRequest(req):
     try:
         data = json.loads(result)
     except ValueError:
-        return speak('webhook: load error')
+        return speak('Sorry, looks like the network has gone to sleep!!!, try again later')
 
-    #return speak('webhook: loaded!!!')
-
-    res = makeWebhookResult(data)
-    return res
+    return speak(GetAdminCount(data))
 
 def speak(text):
     
@@ -78,20 +75,15 @@ def speak(text):
         "source": "webhook"
     }
 
-def makeWebhookResult(data):
-    query = data.get('name')
-    if query is None:
-        speech = "The mk6 - no data" + data
+def GetAdminCount(data):
+    Kount = len(data)
+    if Kount == 0:
+        speech = "Sorry but there are no admin accounts available"
     else:
-        speech = " Mk5 - got data" + data
+        speech = "There are " + str(Kount) + " admin accounts, do you wish me to list them"
 
-    return {
-        "speech": speech,
-        "displayText": speech,
-        # "data": data,
-        # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"
-    }
+    return speech
+
 
 
 if __name__ == '__main__':
